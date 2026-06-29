@@ -1,3 +1,7 @@
 django
 psycopg2-binary
 pgvector
+openpyxl
+openai
+dotenv
+pdfplumber

@@ -30,5 +30,14 @@ class InvoiceLine(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending_review")
     created_at = models.DateTimeField(auto_now_add=True)
 
+    PARSE_STATUS_CHOICES = [
+    ("pending", "Pending"),
+    ("success", "Success"),
+    ("partial", "Partial — some lines unparsed"),
+    ("failed", "Failed"),
+    ]
+    parse_status = models.CharField(max_length=10, choices=PARSE_STATUS_CHOICES, default="pending")
+    parse_log = models.TextField(blank=True)
+
     def __str__(self):
         return f"{self.article_code} ({self.invoice})"
