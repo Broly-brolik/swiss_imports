@@ -165,3 +165,13 @@ def extract_invoice_lines(pdf_path):
         return rows, "partial", log
 
     return rows, "success", log
+
+INVOICE_NUMBER_PATTERN = re.compile(r"\b(FA\d{5,})\b")
+
+def detect_invoice_numbers(pdf_path):
+    numbers = set()
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text() or ""
+            numbers.update(INVOICE_NUMBER_PATTERN.findall(text))
+    return numbers
